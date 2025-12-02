@@ -1,0 +1,399 @@
+/* ---------------------------------------------- */
+/* art67.css (User Provided Base Styles)         */
+/* ---------------------------------------------- */
+body {
+  font-family: "Noto Sans JP", "Lucida Grande", Arial, sans-serif; /* Updated font */
+  font-size: 16px; /* Slightly increased for readability */
+  text-align: left;
+  margin: 0 auto;
+  padding: 0;
+  line-height: 1.6;
+  color: #333;
+  background-color: #f9f9f9; /* Slight gray background for the page */
+}
+
+/* Container for the paper look */
+#bdy {
+  max-width: 1000px;
+  margin: 80px auto 40px auto; /* Top margin for fixed header */
+  padding: 40px;
+  background-color: white;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
+  position: relative;
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+  #bdy {
+    margin: 60px 10px 20px 10px;
+    padding: 20px;
+  }
+  .grp-double {
+    width: 100% !important;
+  }
+}
+
+h1 {
+  font-family: "Noto Serif JP", serif;
+  font-size: 28px;
+  margin-top: 0;
+  margin-bottom: 20px;
+  color: #003366; /* Lab Blue */
+  border-bottom: 2px solid #003366;
+  padding-bottom: 10px;
+}
+
+h1.width-subtitle {
+  margin-bottom: 10px;
+}
+
+.date_suf2 {
+  padding-left: 20px;
+  font-size: 14px;
+  font-weight: normal;
+  color: #666;
+  float: right;
+  margin-top: 10px;
+}
+
+h2.subtitle {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0 0 30px 0;
+  color: #555;
+  background-color: #eaece6;
+  padding: 8px 15px;
+  border-left: 5px solid #003366;
+  border-radius: 0 4px 4px 0;
+}
+
+h3 {
+  font-size: 20px;
+  font-weight: bold;
+  color: #003366;
+  width: fit-content;
+  padding-right: 1em;
+  margin: 40px 0 20px 0;
+  border-bottom: solid 2px #ccc;
+  position: relative;
+}
+h3::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 30%;
+  height: 2px;
+  background-color: #003366;
+}
+
+h4 {
+  font-size: 18px;
+  font-weight: bold;
+  width: fit-content;
+  padding-right: 1em;
+  margin: 25px 0 15px 0;
+  border-bottom: dotted 1px gray;
+  color: #444;
+}
+
+p {
+  margin: 12px 0;
+  padding: 0;
+  text-align: justify;
+}
+
+section.chapter {
+  margin-top: 40px;
+}
+
+section.footer {
+  margin-top: 12px;
+  margin-bottom: 5px;
+  padding: 2px;
+}
+
+/* Graph Container Styling */
+.graph-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  margin: 20px 0;
+}
+
+.grp-double {
+  width: 460px;
+  height: auto;
+  border: 1px solid #eee;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  background-color: white;
+}
+
+.wrap-grp {
+  position: relative;
+  text-align: center;
+}
+
+.wrap-grp p {
+  /* Using standard flow instead of absolute for better responsiveness */
+  position: static;
+  font-size: 14px;
+  font-weight: bold;
+  color: #666;
+  margin-bottom: 5px;
+  text-align: left;
+  padding-left: 10px;
+}
+/* Overriding the absolute positioning from original CSS for better reliability */
+.wrap-grp p.wpn2 {
+  position: static;
+}
+
+/* 装飾 */
+.nrm {
+  font-weight: normal;
+}
+.keyword1 {
+  font-weight: bold;
+  color: #003366;
+}
+.bold {
+  font-weight: bold;
+}
+.sup5 {
+  font-size: 80%;
+  vertical-align: super;
+}
+
+/* Table Styles - Research Theme */
+table.art67-table {
+  border-collapse: collapse;
+  font-size: 15px;
+  margin: 20px auto;
+  width: 90%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+table.art67-table caption {
+  white-space: nowrap;
+  font-weight: bold;
+  text-align: left;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+table.art67-table th,
+table.art67-table td {
+  border: 1px solid #ddd;
+  text-align: center;
+  padding: 8px 12px;
+}
+
+table.art67-table th {
+  background-color: #003366; /* Header Color */
+  color: white;
+  font-weight: normal;
+}
+
+table.art67-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* Definition List */
+dl.art67-dl {
+  margin-left: 20px;
+}
+dl.art67-dl dt {
+  margin-top: 15px;
+  font-weight: bold;
+  color: #003366;
+}
+dl.art67-dl dd {
+  margin-left: 20px;
+  margin-bottom: 5px;
+}
+
+.smlftB {
+  font-size: 86%;
+}
+.inblock-keyword {
+  display: inline-block;
+  font-weight: bold;
+  font-size: 105%;
+  border: 1px solid #cc0000;
+  color: #cc0000;
+  padding: 3px 10px;
+  background-color: #fff5f5;
+  border-radius: 4px;
+}
+
+.nwrap {
+  white-space: nowrap;
+}
+
+.zudlg1 {
+  text-decoration: underline 2px solid #28a745;
+  text-underline-offset: 0.2em;
+}
+
+.zudlr1 {
+  text-decoration: underline 2px solid #dc3545;
+  text-underline-offset: 0.2em;
+}
+
+.markerY {
+  background: linear-gradient(transparent 60%, rgba(255, 228, 0, 0.5) 60%);
+  text-decoration: none;
+}
+
+/* ---------------------------------------------- */
+/* Additional Styles for Header & Menu (Script)  */
+/* ---------------------------------------------- */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+}
+
+.header .container {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.gamboo_logo {
+  height: 40px;
+  width: auto;
+}
+
+/* Hamburger Menu */
+.hamburger {
+  width: 30px;
+  height: 24px;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.hamburger-bar {
+  display: block;
+  width: 100%;
+  height: 3px;
+  background-color: #333;
+  transition: all 0.3s ease;
+}
+
+.hamburger.active .hamburger-bar:nth-child(1) {
+  transform: translateY(10.5px) rotate(45deg);
+}
+.hamburger.active .hamburger-bar:nth-child(2) {
+  opacity: 0;
+}
+.hamburger.active .hamburger-bar:nth-child(3) {
+  transform: translateY(-10.5px) rotate(-45deg);
+}
+
+/* Menu Overlay */
+.menu_off {
+  position: fixed;
+  top: 60px;
+  right: -100%;
+  width: 100%;
+  max-width: 300px;
+  height: calc(100vh - 60px);
+  background-color: rgba(0, 51, 102, 0.95); /* Deep Blue transparency */
+  transition: right 0.3s ease;
+  z-index: 999;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.menu_on {
+  position: fixed;
+  top: 60px;
+  right: 0;
+  width: 100%;
+  max-width: 300px;
+  height: calc(100vh - 60px);
+  background-color: rgba(0, 51, 102, 0.95);
+  transition: right 0.3s ease;
+  z-index: 999;
+  padding: 20px;
+  box-sizing: border-box;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.menu_on p,
+.menu_off p {
+  margin: 15px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  padding-bottom: 10px;
+}
+
+.menu_on a,
+.menu_off a {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: bold;
+  display: block;
+}
+.menu_on a:hover {
+  color: #ffcc00;
+}
+
+/* ---------------------------------------------- */
+/* Animation Classes (for script.js)             */
+/* ---------------------------------------------- */
+.main_section {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.main_section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Placeholder for images when files are missing */
+img.grp-double:not([src]) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f0f0f0;
+  color: #666;
+  font-size: 14px;
+  height: 300px;
+}
+
+/* Lab Header for text logo fallback */
+.lab-logo-text {
+  font-family: "Noto Serif JP", serif;
+  font-size: 20px;
+  font-weight: bold;
+  color: #003366;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+.lab-logo-icon {
+  margin-right: 8px;
+  font-size: 24px;
+}
