@@ -4,6 +4,21 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>3連単車券の人気順と回収率の関係を調査 | 遠山競輪研究所</title>
+    <!-- OGP & Favicon -->
+    <meta
+      property="og:title"
+      content="3連単車券の人気順と回収率の関係を調査 | 遠山競輪研究所"
+    />
+    <meta
+      property="og:description"
+      content="「3連単のn番人気を買い続けると回収率はどうなるのか」をテーマに、過去5年間のレースデータをもとに徹底検証。"
+    />
+    <meta property="og:type" content="article" />
+    <meta
+      property="og:url"
+      content="https://gamboo.jp/pages/?tid=tohyama_index_2024"
+    />
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -45,6 +60,10 @@
           >
         </h1>
         <h2 class="subtitle">車券回収率アップ大作戦！ #1</h2>
+
+        <!-- Table of Contents Container -->
+        <div id="toc-container"></div>
+
         <p>
           「3連単の n 番人気を買い続けると回収率はどうなるのか」。<br />
           この素朴な疑問を出発点に、実際のレースデータをもとに検証を行った。<br />
@@ -263,45 +282,47 @@
           >」を整理すると、下表のようになる。
         </p>
 
-        <table class="art67-table">
-          <caption>
-            表1. 回収率が最も高い人気帯と回収率70%越えの人気帯
-          </caption>
-          <thead>
-            <tr>
-              <th>クラス</th>
-              <th>回収率が最も高い人気帯</th>
-              <th>回収率70%越えの人気帯</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th>S級戦9車立て</th>
-              <td>1番人気</td>
-              <td>1～99番人気</td>
-            </tr>
-            <tr>
-              <th>S級戦7車立て</th>
-              <td>10～19番人気</td>
-              <td>1～69番人気</td>
-            </tr>
-            <tr>
-              <th>A級1･2班戦7車立て</th>
-              <td>10～19番人気</td>
-              <td>1～39番人気</td>
-            </tr>
-            <tr>
-              <th>チャレンジ7車立て</th>
-              <td>1番人気</td>
-              <td>1～19番人気</td>
-            </tr>
-            <tr>
-              <th>ガールズ7車立て</th>
-              <td>4～6番人気</td>
-              <td>2～19番人気</td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="table-scroll">
+          <table class="art67-table">
+            <caption>
+              表1. 回収率が最も高い人気帯と回収率70%越えの人気帯
+            </caption>
+            <thead>
+              <tr>
+                <th>クラス</th>
+                <th>回収率が最も高い人気帯</th>
+                <th>回収率70%越えの人気帯</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th>S級戦9車立て</th>
+                <td>1番人気</td>
+                <td>1～99番人気</td>
+              </tr>
+              <tr>
+                <th>S級戦7車立て</th>
+                <td>10～19番人気</td>
+                <td>1～69番人気</td>
+              </tr>
+              <tr>
+                <th>A級1･2班戦7車立て</th>
+                <td>10～19番人気</td>
+                <td>1～39番人気</td>
+              </tr>
+              <tr>
+                <th>チャレンジ7車立て</th>
+                <td>1番人気</td>
+                <td>1～19番人気</td>
+              </tr>
+              <tr>
+                <th>ガールズ7車立て</th>
+                <td>4～6番人気</td>
+                <td>2～19番人気</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </section>
 
       <!-- Chapter 3 -->
@@ -366,6 +387,9 @@
     >
       <p>&copy; 2025 Tohyama Keirin Research Institute. All rights reserved.</p>
     </footer>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" aria-label="Top">↑</button>
 
     <!-- External Script -->
     <script src="script.js"></script>

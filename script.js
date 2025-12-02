@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------
-//  Dynamic Link Generation
+//  リンク生成
 // -----------------------------------------------------------------
 const create_mynum = function () {
   const mynum = Math.floor(Math.random() * 10) + 1;
@@ -14,17 +14,15 @@ const create_mynum = function () {
 };
 
 // -----------------------------------------------------------------
-//  Header & Menu Generation
+//  ヘッダー生成
 // -----------------------------------------------------------------
 const CommonHeader = document.createElement("header");
 CommonHeader.className = "header";
 
-// Use a text logo as fallback, or the image if valid
-// Modified to use a placeholder-safe structure
 CommonHeader.innerHTML =
   '<div class="container">' +
   '<a href="https://gamboo.jp/" class="lab-logo-text">' +
-  '<span class="lab-logo-icon">🚲</span> 遠山競輪研究所' +
+  '<img src="gamboo_logo.png" alt="Gamboo" class="gamboo_logo">' +
   "</a>" +
   '<div class="hamburger" id="ignite">' +
   '<span class="hamburger-bar"></span>' +
@@ -33,10 +31,10 @@ CommonHeader.innerHTML =
   "</div>" +
   "</div>";
 
-// Insert Header at the top of the body (Prepending)
+// ヘッダーをbodyの最初に挿入
 document.body.insertBefore(CommonHeader, document.body.firstChild);
 
-// Create Menu
+// メニュー生成
 const menu_list = document.createElement("section");
 menu_list.className = "menu_off";
 
@@ -55,10 +53,10 @@ menu_list.innerHTML = `
 document.body.appendChild(menu_list);
 
 // -----------------------------------------------------------------
-//  Event Listeners & Animation
+//  イベントリスナー&アニメーション
 // -----------------------------------------------------------------
 const ignite = document.getElementById("ignite");
-// Ensure we select the menu correctly regardless of initial state
+
 const menu = menu_list;
 
 ignite.addEventListener(
@@ -77,13 +75,10 @@ ignite.addEventListener(
 );
 
 document.addEventListener("DOMContentLoaded", function () {
-  // Scroll Animation
+  // -----------------------------------------------------------------
+  //  1. スクロールアニメーション
+  // -----------------------------------------------------------------
   const sections = document.querySelectorAll(".main_section");
-  sections.forEach((section) => {
-    // Already added in HTML, but logic ensures it works
-    // section.classList.add("main_section");
-  });
-
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
@@ -100,4 +95,110 @@ document.addEventListener("DOMContentLoaded", function () {
   sections.forEach((section) => {
     observer.observe(section);
   });
+
+  // -----------------------------------------------------------------
+  //  2. マーカーアニメーション
+  // -----------------------------------------------------------------
+  const markers = document.querySelectorAll(".markerY");
+  const markerObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("active");
+        }
+      });
+    },
+    {
+      rootMargin: "0px 0px -10% 0px", // Trigger slightly before bottom
+      threshold: 0.5,
+    }
+  );
+
+  markers.forEach((marker) => {
+    markerObserver.observe(marker);
+  });
+
+  // -----------------------------------------------------------------
+  //  3. テーブル目次生成
+  // -----------------------------------------------------------------
+  const tocContainer = document.getElementById("toc-container");
+  if (tocContainer) {
+    const headings = document.querySelectorAll(
+      "article#bdy h3, article#bdy h4"
+    );
+    if (headings.length > 0) {
+      const tocList = document.createElement("ul");
+      let currentH3Li = null;
+      let currentH4Ul = null;
+
+      headings.forEach((heading, index) => {
+        // Assign ID if not present
+        if (!heading.id) {
+          heading.id = "heading-" + index;
+        }
+
+        const link = document.createElement("a");
+        link.href = "#" + heading.id;
+        link.textContent = heading.textContent;
+
+        // Smooth scroll
+        link.addEventListener("click", (e) => {
+          e.preventDefault();
+          document.getElementById(heading.id).scrollIntoView({
+            behavior: "smooth",
+          });
+        });
+
+        const li = document.createElement("li");
+        li.appendChild(link);
+
+        if (heading.tagName.toLowerCase() === "h3") {
+          currentH3Li = li;
+          currentH4Ul = null; // Reset H4 list
+          tocList.appendChild(li);
+        } else if (heading.tagName.toLowerCase() === "h4") {
+          if (currentH3Li) {
+            if (!currentH4Ul) {
+              currentH4Ul = document.createElement("ul");
+              currentH3Li.appendChild(currentH4Ul);
+            }
+            currentH4Ul.appendChild(li);
+          } else {
+            // Fallback if H4 comes before any H3 (unlikely but safe)
+            tocList.appendChild(li);
+          }
+        }
+      });
+
+      const tocTitle = document.createElement("p");
+      tocTitle.textContent = "目次";
+      tocTitle.style.fontWeight = "bold";
+      tocTitle.style.marginBottom = "10px";
+      tocTitle.style.borderBottom = "1px solid #ccc";
+
+      tocContainer.appendChild(tocTitle);
+      tocContainer.appendChild(tocList);
+    }
+  }
+
+  // -----------------------------------------------------------------
+  //  4. 最初に戻るボタン
+  // -----------------------------------------------------------------
+  const backToTopBtn = document.getElementById("back-to-top");
+  if (backToTopBtn) {
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 300) {
+        backToTopBtn.classList.add("visible");
+      } else {
+        backToTopBtn.classList.remove("visible");
+      }
+    });
+
+    backToTopBtn.addEventListener("click", () => {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    });
+  }
 });
