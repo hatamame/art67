@@ -22,7 +22,7 @@ CommonHeader.className = "header";
 CommonHeader.innerHTML =
   '<div class="container">' +
   '<a href="https://gamboo.jp/" class="lab-logo-text">' +
-  '<img src="gamboo_logo.png" alt="Gamboo" class="gamboo_logo">' +
+  '<img src="/images/tohyama/tohyama_index_2024/gamboo_logo.png" alt="Gamboo" class="gamboo_logo">' +
   "</a>" +
   '<div class="hamburger" id="ignite">' +
   '<span class="hamburger-bar"></span>' +
@@ -144,7 +144,22 @@ document.addEventListener("DOMContentLoaded", function () {
         // Smooth scroll
         link.addEventListener("click", (e) => {
           e.preventDefault();
-          document.getElementById(heading.id).scrollIntoView({
+          const targetElement = document.getElementById(heading.id);
+
+          // ヘッダーの高さを取得（動的に生成されている.headerクラスを取得）
+          const header = document.querySelector(".header");
+          const headerHeight = header ? header.offsetHeight : 0;
+
+          // 余白（ヘッダーぴったりだと窮屈な場合に調整。例: 20px）
+          const buffer = 20;
+
+          // 現在のスクロール位置 + 要素のウィンドウ相対位置 - ヘッダーの高さ - 余白
+          const elementPosition = targetElement.getBoundingClientRect().top;
+          const offsetPosition =
+            elementPosition + window.scrollY - headerHeight - buffer;
+
+          window.scrollTo({
+            top: offsetPosition,
             behavior: "smooth",
           });
         });

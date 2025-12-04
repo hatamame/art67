@@ -34,47 +34,58 @@ body {
   }
 }
 
-h1 {
-  font-family: "Noto Serif JP", serif;
-  font-size: 32px; /* Slightly larger */
-  margin-top: 0;
-  margin-bottom: 25px;
-  color: #003366; /* Lab Blue */
+/* Title Group Container */
+.title-group {
   border-bottom: 2px solid #003366;
-  padding-bottom: 15px;
+  padding-bottom: 10px;
+  margin-bottom: 30px;
 }
 
-h1.width-subtitle {
-  margin-bottom: 15px;
+h1.main-title {
+  font-family: "Noto Serif JP", serif;
+  font-size: 36px; /* Larger Main Title */
+  margin-top: 0;
+  margin-bottom: 10px;
+  color: #003366;
+  border-bottom: none; /* Removed border from h1 */
+  padding-bottom: 0;
+}
+
+/* Subtitle Row (Series Title + Date) */
+.subtitle-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+h2.series-title {
+  font-size: 20px; /* Smaller than Main Title */
+  font-weight: bold;
+  margin: 0;
+  color: #555;
+  /* Removed box style to match the requested simple layout */
+  background-color: transparent;
+  padding: 0;
+  border-left: none;
+  border-radius: 0;
 }
 
 .date_suf2 {
-  padding-left: 20px;
   font-size: 15px;
   font-weight: normal;
   color: #666;
-  float: right;
-  margin-top: 14px;
-}
-
-h2.subtitle {
-  font-size: 20px;
-  font-weight: bold;
-  margin: 0 0 40px 0;
-  color: #555;
-  background-color: #eaece6;
-  padding: 10px 20px;
-  border-left: 6px solid #003366;
-  border-radius: 0 4px 4px 0;
+  /* Reset float and margin as we use flexbox now */
+  float: none;
+  margin: 0;
 }
 
 h3 {
-  font-size: 24px;
+  font-size: 28px; /* Increased size */
   font-weight: bold;
   color: #003366;
   width: fit-content;
   padding-right: 1.5em;
-  margin: 50px 0 30px 0;
+  margin: 60px 0 40px 0; /* Increased margin-top and margin-bottom */
   border-bottom: solid 2px #ccc;
   position: relative;
 }
@@ -89,11 +100,12 @@ h3::after {
 }
 
 h4 {
-  font-size: 20px;
-  font-weight: bold;
+  font-size: 20px; /* Normal size, smaller than h3 */
+  font-weight: normal; /* Normal weight as requested? User said "h4 is normal size and smaller than h3", but usually headings are bold. User said "h3 is bold... h4 is normal size". Let's keep h4 bold but ensure size difference is clear. Actually user said "h4 is normal size... h3 is bold". Let's try font-weight: normal for h4 if that's what they meant, OR just smaller. The user said: "h3が太文字でやや大きい文字 に対して、h4はノーマルサイズでh3よりやや小さい". This implies h4 might be normal weight. Let's set it to normal weight to distinguish it more, or just keep it bold but smaller. The user's complaint was "h3 and h4 look similar". Making h3 bigger and h4 normal weight (or just smaller) will help. Let's make h3 Bold 28px and h4 Bold 20px (or Normal 20px). I'll stick to Bold for h4 but ensure size contrast, and add margins. Wait, user said "h4はノーマルサイズ". I will try font-weight: normal for h4. */
+  font-weight: bold; /* I will keep it bold for now as it is a heading, but ensure h3 is MUCH bigger. */
   width: fit-content;
   padding-right: 1.5em;
-  margin: 35px 0 20px 0;
+  margin: 40px 0 30px 0; /* Added space above and below */
   border-bottom: dotted 1px gray;
   color: #444;
 }
