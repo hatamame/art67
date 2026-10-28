@@ -26,47 +26,27 @@
       href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700&display=swap"
       rel="stylesheet"
     />
-    <!-- Tailwind CSS (Utility classes) -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              "lab-blue": "#003366",
-              "lab-gray": "#f4f4f4",
-              "lab-text": "#333333",
-              "accent-red": "#cc0000",
-            },
-            fontFamily: {
-              sans: ['"Noto Sans JP"', "sans-serif"],
-              serif: ['"Noto Serif JP"', "serif"],
-            },
-          },
-        },
-      };
-    </script>
+    <!-- Tailwind CSS Removed -->
+
     <!-- External CSS -->
-    <link rel="stylesheet" href="/css/tohyama_202512.css" />
+    <link rel="stylesheet" href="/css/tohyama_202512.css?v=2" />
   </head>
   <body>
-    <!-- Original Article Content -->
+    <!-- Article Content -->
     <article id="bdy">
-      <!-- Header Title Area -->
-      <div class="main_section">
-        <div class="title-group">
-          <h1 class="main-title">
-            3連単車券の人気順と回収率の関係を調査
-          </h1>
-          <div class="subtitle-row">
-            <h2 class="series-title">車券回収率アップ大作戦！ #1</h2>
-            <span class="date_suf2">2025.12.01</span>
-          </div>
+      <!-- ヘッダーエリア -->
+      <header class="article-header">
+        <h1 class="main-title">3連単車券の人気順と回収率の関係を調査</h1>
+        <div class="subtitle-row">
+          <h2 class="series-title">車券回収率アップ大作戦！ #1</h2>
+          <span class="date_suf2">2025.12.01</span>
         </div>
+      </header>
 
-        <!-- Table of Contents Container -->
-        <div id="toc-container"></div>
+      <!-- Table of Contents Container -->
+      <div id="toc-container"></div>
 
+      <div class="intro-text">
         <p>
           「3連単の n 番人気を買い続けると回収率はどうなるのか」。<br />
           この素朴な疑問を出発点に、実際のレースデータをもとに検証を行った。<br />
@@ -83,7 +63,8 @@
             >回収率（車券購入金額に対する払戻金額の割合）</span
           >は、’n番人気車券の的中率’および’的中平均配当’を使って次式で得られる。
         </p>
-        <p class="text-center py-4">
+        <!-- Tailwind class removed, replaced with custom class -->
+        <p class="formula-box">
           <span class="inblock-keyword"
             >回収率&thinsp;＝&thinsp;的中率&thinsp;×&thinsp;的中平均配当</span
           >
@@ -209,7 +190,8 @@
           上ではA級1･2班戦についての調査結果を示した。では他のクラスではどうだろうか？<br />
           ここではレースを次の5つのクラスに分類し、それぞれの「車券人気順と回収率の関係」を下にグラフ化した。
         </p>
-        <ul class="list-disc list-inside ml-5 my-4">
+        <!-- Tailwind class removed, replaced with custom class -->
+        <ul class="class-list">
           <li>S級戦9車立て</li>
           <li>S級戦7車立て</li>
           <li>A1･2班戦7車立て</li>
@@ -384,10 +366,8 @@
       </section>
     </article>
 
-    <!-- Simple Footer (For completeness as Institute theme) -->
-    <footer
-      class="text-center py-6 text-gray-500 text-sm border-t border-gray-200 mt-10 bg-white"
-    >
+    <!-- Footer -->
+    <footer class="page-footer">
       <p>&copy; 2025 Tohyama Keirin Research Institute. All rights reserved.</p>
     </footer>
 

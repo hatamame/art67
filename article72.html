@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>本命狙い・穴狙いの年間収支をシミュレーション検証（運が良ければ？） | 遠山競輪研究所</title>
+    <!-- OGP & Favicon -->
+    <meta
+      property="og:title"
+      content="本命狙い・穴狙いの年間収支をシミュレーション検証（運が良ければ？） | 遠山競輪研究所"
+    />
+    <meta
+      property="og:description"
+      content="本命狙い・穴狙いの車券購入を1年間続けた場合の的中率や年間収支を、モンテカルロ法を用いたシミュレーションで検証。"
+    />
+    <meta property="og:type" content="article" />
+    <meta
+      property="og:url"
+      content="https://gamboo.jp/pages/?tid=tohyama_index_2024"
+    />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="/css/tohyama_202512.css?v=3" />
+  </head>
+  <body>
+    <!-- Article Content -->
+    <article id="bdy">
+      <!-- ヘッダーエリア -->
+      <header class="article-header">
+        <h1 class="main-title">
+          本命狙い・穴狙いの年間収支をシミュレーション検証（運が良ければ？）
+        </h1>
+        <div class="subtitle-row">
+          <h2 class="series-title">車券回収率アップ大作戦！ #2</h2>
+          <span class="date_suf2">2026.10.27</span>
+        </div>
+      </header>
+
+      <!-- Table of Contents Container -->
+      <div id="toc-container"></div>
+
+      <div class="intro-text">
+        <p>
+          本命狙い・穴狙いの車券購入を1年間続けた場合に、的中率や年間収支はどうなるのか、また車券の上手さ（または運の良さ）がどのように反映されるかを、モンテカルロ法を用いたシミュレーションで検証してみた。
+        </p>
+      </div>
+
+      <!-- Chapter 1 -->
+      <section class="chapter main_section" id="chapter1">
+        <h3>シミュレーションの概要</h3>
+
+        <section class="section">
+          <h4>対象レース・対象車券</h4>
+          <p>
+            車券購入の<span class="zudlr1"
+              >対象レースは<b>S級戦・A1・2班戦・チャレンジ戦・ガールズ戦の7車立てレース</b></span
+            >で、<span class="zudlr1">対象車券は<b>3連勝単式</b></span
+            >とする。<br />
+            （9車立て、および5車・6車・8車立てのレースは対象外。また当日欠場があるレースも対象外。）
+          </p>
+        </section>
+
+        <section class="section">
+          <h4>車券購入者のグループ分け</h4>
+          <p>
+            車券購入者を、狙う人気順帯によって、<b>本命狙いA&thinsp;〜&thinsp;大穴狙いB</b>
+            の9個のグループに分ける。<br />
+            各グループの<b>車券購入条件</b>（狙う車券の人気順帯と購入本数）は下表のとおり。<br />
+            過去5年間（2020年10月〜2025年9月）の対象レースにおける、各人気帯の<b>オッズ分布</b>を調査し、参考値として表に付加した。<br />
+            <span class="smlftB"
+              >（"オッズ分布"の表記は、過去5年間の各人気帯のオッズ値を小さい順に並べた場合の、10%値、中央値、90%値）</span
+            >
+          </p>
+
+          <div class="table-scroll">
+            <table class="art67-table col2-left">
+              <caption>
+                表1. 車券購入グループ
+              </caption>
+              <thead>
+                <tr>
+                  <th>グループ</th>
+                  <th>車券購入条件</th>
+                  <th>オッズ分布（10%値〜中央値〜90%値）</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th>本命狙いA</th>
+                  <td>3連単&thinsp;1番人気の1点を2400円購入</td>
+                  <td>3.2 〜 6.8 〜 13.9</td>
+                </tr>
+                <tr>
+                  <th>本命狙いB</th>
+                  <td>　〃　2・3番人気の2点を各1200円購入</td>
+                  <td>6.3 〜 11.8 〜 19.5</td>
+                </tr>
+                <tr>
+                  <th>小穴狙いA</th>
+                  <td>　〃　4〜6番人気の中から2点を各1200円購入</td>
+                  <td>13.2 〜 20.1 〜 28.5</td>
+                </tr>
+                <tr>
+                  <th>小穴狙いB</th>
+                  <td>　〃　7〜9番人気の中から2点を各1200円購入</td>
+                  <td>22.2 〜 29.7 〜 39.1</td>
+                </tr>
+                <tr>
+                  <th>小穴狙いC</th>
+                  <td>　〃　10〜19番人気の中から3点を各800円購入</td>
+                  <td>35.4 〜 50.3 〜 74.3</td>
+                </tr>
+                <tr>
+                  <th>中穴狙いA</th>
+                  <td>　〃　20〜39番人気の中から4点を各600円購入</td>
+                  <td>68.5 〜 102.8 〜 193.8</td>
+                </tr>
+                <tr>
+                  <th>中穴狙いB</th>
+                  <td>　〃　40〜69番人気の中から6点を各400円購入</td>
+                  <td>134.7 〜 221.6 〜 530.3</td>
+                </tr>
+                <tr>
+                  <th>大穴狙いA</th>
+                  <td>　〃　70〜99番人気の中から6点を各400円購入</td>
+                  <td>241.0 〜 429.6 〜 1,194.1</td>
+                </tr>
+                <tr>
+                  <th>大穴狙いB</th>
+                  <td>　〃　100番人気以上の中から12点を各200円購入</td>
+                  <td>546.8 〜 1,596.1 〜 5,732.1</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="section">
+          <h4>1か月間の車券購入ルール</h4>
+          <dl class="art67-dl">
+            <dt>1レース購入額： 2,400円</dt>
+            <dd>
+              各グループの車券購入条件は上表のとおり。購入点数は違うが、どのグループも1レース購入額は2,400円となっている。<br />
+              小穴狙い〜大穴狙いでは「<span class="zudlg1"
+                >対象人気順の車券数＞購入車券数</span
+              >」となり、購入車券の選択には購入者の判断が入るが、<span
+                class="zudlr1"
+                >シミュレーションではランダム抽出</span
+              >とする。
+            </dd>
+            <dt>
+              対象レース：S級戦、A1・2班戦、チャレンジ戦、ガールズ戦 の7車立てレース
+            </dt>
+            <dd>
+              購入対象の車券数にバラつきが生じないよう、今回は7車立てレース限定とする。
+            </dd>
+            <dt>1か月に賭けるレース数： 30個</dt>
+            <dd>
+              １か月間の対象レースから購入者が30個を選択して車券購入するが、<span
+                class="zudlr1"
+                >シミュレーションでは、2020年10月〜2025年9月（5年間）のレースデータからランダムに30個を抽出</span
+              >する。
+            </dd>
+            <dt>1か月のストップロス（損切り）： -36,000円</dt>
+            <dd>
+              収支がマイナス36,000円以下となった時点で、その月の車券購入はストップとする。
+            </dd>
+          </dl>
+        </section>
+
+        <section class="section">
+          <h4>的中率・年間収支</h4>
+          <p>
+            上の1か月間シミュレーションを12か月続けて、的中率および年間収支を算出する。
+          </p>
+        </section>
+
+        <section class="section">
+          <h4>10,000回のモンテカルロ・シミュレーション</h4>
+          <p>
+            各グループで1年間の車券購入を10,000回繰り返すモンテカルロ・シミュレーションを行い、その結果を各グループ10,000人分の的中率・年間収支とみなして調査する。
+          </p>
+        </section>
+      </section>
+
+      <!-- Chapter 2 -->
+      <section class="chapter main_section" id="chapter2">
+        <h3>シミュレーション結果</h3>
+
+        <section class="section">
+          <h4>平均値</h4>
+          <p>
+            各グループでのシミュレーション10,000回の平均値（＝10,000人の年間平均値）は次のとおり。
+          </p>
+
+          <div class="table-scroll">
+            <table class="art67-table">
+              <caption>
+                表2. 各グループ10,000人の年間平均値
+              </caption>
+              <thead>
+                <tr>
+                  <th rowspan="2">グループ</th>
+                  <th colspan="2">年間レース数</th>
+                  <th rowspan="2">的中<br />率</th>
+                  <th rowspan="2">年間<br />回収額</th>
+                  <th rowspan="2">年間<br />収支</th>
+                  <th rowspan="2">回収<br />率</th>
+                  <th rowspan="2">的中<br />平均配当</th>
+                </tr>
+                <tr>
+                  <th>購入</th>
+                  <th>的中</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th>本命狙いA</th>
+                  <td>315個</td>
+                  <td>42.4個</td>
+                  <td>13.5％</td>
+                  <td>557,800円</td>
+                  <td>-197,025円</td>
+                  <td>73.9％</td>
+                  <td>548円</td>
+                </tr>
+                <tr>
+                  <th>本命狙いB</th>
+                  <td>322個</td>
+                  <td>47.4個</td>
+                  <td>14.7％</td>
+                  <td>572,916円</td>
+                  <td>-199,239円</td>
+                  <td>74.2％</td>
+                  <td>1,007円</td>
+                </tr>
+                <tr>
+                  <th>小穴狙いA</th>
+                  <td>298個</td>
+                  <td>24.9個</td>
+                  <td>8.3％</td>
+                  <td>551,671円</td>
+                  <td>-164,071円</td>
+                  <td>77.2％</td>
+                  <td>1,847円</td>
+                </tr>
+                <tr>
+                  <th>小穴狙いB</th>
+                  <td>278個</td>
+                  <td>15.2個</td>
+                  <td>5.5％</td>
+                  <td>518,991円</td>
+                  <td>-148,914円</td>
+                  <td>77.7％</td>
+                  <td>2,847円</td>
+                </tr>
+                <tr>
+                  <th>小穴狙いC</th>
+                  <td>271個</td>
+                  <td>13.0個</td>
+                  <td>4.8％</td>
+                  <td>497,899円</td>
+                  <td>-153,683円</td>
+                  <td>76.4％</td>
+                  <td>4,793円</td>
+                </tr>
+                <tr>
+                  <th>中穴狙いA</th>
+                  <td>245個</td>
+                  <td>7.3個</td>
+                  <td>3.0％</td>
+                  <td>430,077円</td>
+                  <td>-158,929円</td>
+                  <td>73.0％</td>
+                  <td>9,735円</td>
+                </tr>
+                <tr>
+                  <th>中穴狙いB</th>
+                  <td>227個</td>
+                  <td>4.6個</td>
+                  <td>2.0％</td>
+                  <td>373,796円</td>
+                  <td>-171,932円</td>
+                  <td>68.5％</td>
+                  <td>19,838円</td>
+                </tr>
+                <tr>
+                  <th>大穴狙いA</th>
+                  <td>206個</td>
+                  <td>2.1個</td>
+                  <td>1.0％</td>
+                  <td>314,585円</td>
+                  <td>-179,711円</td>
+                  <td>63.6％</td>
+                  <td>31,571円</td>
+                </tr>
+                <tr>
+                  <th>大穴狙いB</th>
+                  <td>196個</td>
+                  <td>1.2個</td>
+                  <td>0.62％</td>
+                  <td>245,929円</td>
+                  <td>-224,009円</td>
+                  <td>52.3％</td>
+                  <td>67,604円</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h5>考察1</h5>
+          <p>
+            上表から、<span class="zudlr1"><b>平均値</b>としてわかること</span
+            >を以下にまとめた。
+          </p>
+          <dl class="art67-dl">
+            <dt>多くのレースを楽しむなら本命狙い！</dt>
+            <dd>
+              本命狙いはストップロスとなる月が少なく、多くのレースを楽しめる、1点・2点買いではあるが的中数も圧倒的に多い。
+            </dd>
+            <dt>回収額も本命狙い！</dt>
+            <dd>
+              回収額も本命狙いが高く、狙う穴が大きくなるほど回収額は低くなる。
+            </dd>
+            <dt>回収率は小穴狙い！</dt>
+            <dd>
+              回収率となると小穴狙いが優秀だ。平均値で75％を超えているのは小穴狙いのグループだけだ。
+            </dd>
+            <dt>収支となると、小穴狙いおよび中穴狙いの成績が良い！</dt>
+            <dd>
+              どのグループも年間収支はマイナスとなるが、マイナス額が最も小さいのは小穴狙いB、次いで小穴狙いC→中穴狙いAとなる。
+            </dd>
+            <dt>高額配当を狙うなら大穴狙い！</dt>
+            <dd>
+              的中率は低いが、的中車券の配当額は大穴狙いが断然大きくなる。
+            </dd>
+          </dl>
+        </section>
+
+        <section class="section">
+          <h4>年間収支の度数分布図</h4>
+          <p>
+            上表は、各グループ10,000人の平均値を比較した結果だ。だが、実際の分布では10,000人分のバラつきがある。<br />
+            ここでは年間収支について、バラつきを考慮して考察を深めてみる。
+          </p>
+          <p>
+            下に各グループの年間収支について、10,000人分（＝シミュレーション10,000回）の度数分布図を示す。
+          </p>
+
+          <div class="graph-container">
+            <div class="wrap-grp">
+              <p>図1. 本命狙いA 年間収支</p>
+              <img
+                src="/images/tohyama/tohyama_article_2025/art72_bunpu_a.png"
+                alt="本命狙いAの年間収支の度数分布図"
+                class="grp-triple"
+                onerror="this.onerror=null;this.src='data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22460%22%20height%3D%22300%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23f4f4f4%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20font-family%3D%22sans-serif%22%20font-size%3D%2220%22%20fill%3D%22%23666%22%3EGraph%20Image%201%20Not%20Found%3C%2Ftext%3E%3C%2Fsvg%3E';"
+              />
+            </div>
+            <div class="wrap-grp">
+              <p>図2. 本命狙いB 年間収支</p>
+              <img
+                src="/images/tohyama/tohyama_article_2025/art72_bunpu_b.png"
+                alt="本命狙いBの年間収支の度数分布図"
+                class="grp-triple"
+                onerror="this.onerror=null;this.src='data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22460%22%20height%3D%22300%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23f4f4f4%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20font-family%3D%22sans-serif%22%20font-size%3D%2220%22%20fill%3D%22%23666%22%3EGraph%20Image%202%20Not%20Found%3C%2Ftext%3E%3C%2Fsvg%3E';"
+              />
+            </div>
+            <div class="wrap-grp">
+              <p>図3. 小穴狙いA 年間収支</p>
+              <img
+                src="/images/tohyama/tohyama_article_2025/art72_bunpu_c.png"
+                alt="小穴狙いAの年間収支の度数分布図"
+                class="grp-triple"
+                onerror="this.onerror=null;this.src='data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22460%22%20height%3D%22300%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23f4f4f4%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20font-family%3D%22sans-serif%22%20font-size%3D%2220%22%20fill%3D%22%23666%22%3EGraph%20Image%203%20Not%20Found%3C%2Ftext%3E%3C%2Fsvg%3E';"
+              />
+            </div>
+            <div class="wrap-grp">
+              <p>図4. 小穴狙いB 年間収支</p>
+              <img
+                src="/images/tohyama/tohyama_article_2025/art72_bunpu_d.png"
+                alt="小穴狙いBの年間収支の度数分布図"
+                class="grp-triple"
+                onerror="this.onerror=null;this.src='data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22460%22%20height%3D%22300%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23f4f4f4%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20font-family%3D%22sans-serif%22%20font-size%3D%2220%22%20fill%3D%22%23666%22%3EGraph%20Image%204%20Not%20Found%3C%2Ftext%3E%3C%2Fsvg%3E';"
+              />
+            </div>
+            <div class="wrap-grp">
+              <p>図5. 小穴狙いC 年間収支</p>
+              <img
+                src="/images/tohyama/tohyama_article_2025/art72_bunpu_e.png"
+                alt="小穴狙いCの年間収支の度数分布図"
+                class="grp-triple"
+                onerror="this.onerror=null;this.src='data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22460%22%20height%3D%22300%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23f4f4f4%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20font-family%3D%22sans-serif%22%20font-size%3D%2220%22%20fill%3D%22%23666%22%3EGraph%20Image%205%20Not%20Found%3C%2Ftext%3E%3C%2Fsvg%3E';"
+              />
+            </div>
+            <div class="wrap-grp">
+              <p>図6. 中穴狙いA 年間収支</p>
+              <img
+                src="/images/tohyama/tohyama_article_2025/art72_bunpu_f.png"
+                alt="中穴狙いAの年間収支の度数分布図"
+                class="grp-triple"
+                onerror="this.onerror=null;this.src='data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22460%22%20height%3D%22300%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23f4f4f4%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20font-family%3D%22sans-serif%22%20font-size%3D%2220%22%20fill%3D%22%23666%22%3EGraph%20Image%206%20Not%20Found%3C%2Ftext%3E%3C%2Fsvg%3E';"
+              />
+            </div>
+            <div class="wrap-grp">
+              <p>図7. 中穴狙いB 年間収支</p>
+              <img
+                src="/images/tohyama/tohyama_article_2025/art72_bunpu_g.png"
+                alt="中穴狙いBの年間収支の度数分布図"
+                class="grp-triple"
+                onerror="this.onerror=null;this.src='data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22460%22%20height%3D%22300%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23f4f4f4%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20font-family%3D%22sans-serif%22%20font-size%3D%2220%22%20fill%3D%22%23666%22%3EGraph%20Image%207%20Not%20Found%3C%2Ftext%3E%3C%2Fsvg%3E';"
+              />
+            </div>
+            <div class="wrap-grp">
+              <p>図8. 大穴狙いA 年間収支</p>
+              <img
+                src="/images/tohyama/tohyama_article_2025/art72_bunpu_h.png"
+                alt="大穴狙いAの年間収支の度数分布図"
+                class="grp-triple"
+                onerror="this.onerror=null;this.src='data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22460%22%20height%3D%22300%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23f4f4f4%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20font-family%3D%22sans-serif%22%20font-size%3D%2220%22%20fill%3D%22%23666%22%3EGraph%20Image%208%20Not%20Found%3C%2Ftext%3E%3C%2Fsvg%3E';"
+              />
+            </div>
+            <div class="wrap-grp">
+              <p>図9. 大穴狙いB 年間収支</p>
+              <img
+                src="/images/tohyama/tohyama_article_2025/art72_bunpu_i.png"
+                alt="大穴狙いBの年間収支の度数分布図"
+                class="grp-triple"
+                onerror="this.onerror=null;this.src='data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22460%22%20height%3D%22300%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23f4f4f4%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20font-family%3D%22sans-serif%22%20font-size%3D%2220%22%20fill%3D%22%23666%22%3EGraph%20Image%209%20Not%20Found%3C%2Ftext%3E%3C%2Fsvg%3E';"
+              />
+            </div>
+          </div>
+
+          <h5>考察2</h5>
+          <ul class="class-list">
+            <li>
+              本命狙い・小穴狙いは<span class="zudlr1">正規分布</span
+              >に近いベル型となっている。<br />
+              ただし、本命狙いはベルの幅が狭く、小穴狙いは幅が広めだ。
+            </li>
+            <li>
+              中穴狙いになると収支プラス側への裾が伸びて、<span class="zudlr1"
+                >対数正規分布</span
+              >に近づいてくる。<br />
+              特に中穴狙いBはプラス側への裾が長く伸びて、「日本人の所得分布」の形に似ている。
+            </li>
+            <li>
+              大穴狙いは、収支が-40万円未満側にデータが集中し、収支プラス側へ裾が長く伸びて、<span
+                class="zudlr1"
+                >べき乗分布</span
+              >に近くなってくる。
+            </li>
+          </ul>
+        </section>
+
+        <section class="section">
+          <h4>年間収支の集計表</h4>
+          <p>上の度数分布図を、収支の金額帯で比率を算出すると下表となる。</p>
+
+          <div class="table-scroll">
+            <table class="art67-table">
+              <caption>
+                表3. 年間収支の集計結果
+              </caption>
+              <thead>
+                <tr>
+                  <th rowspan="2">グループ</th>
+                  <th colspan="2">年間収支額</th>
+                  <th colspan="6">年間収支の比率</th>
+                </tr>
+                <tr>
+                  <th>平均値</th>
+                  <th>中央値</th>
+                  <th>プラス収支</th>
+                  <th>+5万円以上</th>
+                  <th>+10万円以上</th>
+                  <th>+30万円以上</th>
+                  <th>+100万円以上</th>
+                  <th>-40万円未満</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th>本命狙いA</th>
+                  <td>-197,025円</td>
+                  <td>-202,800円</td>
+                  <td>1.94％</td>
+                  <td>0.55％</td>
+                  <td>0.15％</td>
+                  <td>0.00％</td>
+                  <td>0.00％</td>
+                  <td>0.17％</td>
+                </tr>
+                <tr>
+                  <th>本命狙いB</th>
+                  <td>-199,239円</td>
+                  <td>-204,240円</td>
+                  <td>1.25％</td>
+                  <td>0.33％</td>
+                  <td>0.08％</td>
+                  <td>0.00％</td>
+                  <td>0.00％</td>
+                  <td>0.07％</td>
+                </tr>
+                <tr>
+                  <th>小穴狙いA</th>
+                  <td>-164,071円</td>
+                  <td>-169,740円</td>
+                  <td>6.86％</td>
+                  <td>3.13％</td>
+                  <td>1.27％</td>
+                  <td>0.01％</td>
+                  <td>0.00％</td>
+                  <td>0.30％</td>
+                </tr>
+                <tr>
+                  <th>小穴狙いB</th>
+                  <td>-148,914円</td>
+                  <td>-158,640円</td>
+                  <td>11.98％</td>
+                  <td>6.48％</td>
+                  <td>3.34％</td>
+                  <td>0.17％</td>
+                  <td>0.00％</td>
+                  <td>0.51％</td>
+                </tr>
+                <tr>
+                  <th>小穴狙いC</th>
+                  <td>-153,683円</td>
+                  <td>-165,080円</td>
+                  <td>12.19％</td>
+                  <td>7.04％</td>
+                  <td>3.70％</td>
+                  <td>0.15％</td>
+                  <td>0.00％</td>
+                  <td>0.79％</td>
+                </tr>
+                <tr>
+                  <th>中穴狙いA</th>
+                  <td>-158,929円</td>
+                  <td>-179,430円</td>
+                  <td>15.05％</td>
+                  <td>10.21％</td>
+                  <td>6.79％</td>
+                  <td>0.97％</td>
+                  <td>0.00％</td>
+                  <td>2.79％</td>
+                </tr>
+                <tr>
+                  <th>中穴狙いB</th>
+                  <td>-171,932円</td>
+                  <td>-204,560円</td>
+                  <td>16.53％</td>
+                  <td>11.83％</td>
+                  <td>8.46％</td>
+                  <td>1.90％</td>
+                  <td>0.01％</td>
+                  <td>6.15％</td>
+                </tr>
+                <tr>
+                  <th>大穴狙いA</th>
+                  <td>-179,711円</td>
+                  <td>-233,760円</td>
+                  <td>18.87％</td>
+                  <td>15.15％</td>
+                  <td>12.02％</td>
+                  <td>4.49％</td>
+                  <td>0.21％</td>
+                  <td>16.18％</td>
+                </tr>
+                <tr>
+                  <th>大穴狙いB</th>
+                  <td>-224,009円</td>
+                  <td>-330,900円</td>
+                  <td>15.78％</td>
+                  <td>13.27％</td>
+                  <td>11.31％</td>
+                  <td>6.08％</td>
+                  <td>0.71％</td>
+                  <td>36.52％</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h5>考察3</h5>
+          <p>
+            上表の、<span class="zudlr1">年間収支の比率からわかること</span
+            >を以下にまとめた。
+          </p>
+          <dl class="art67-dl">
+            <dt>本命狙いだと年間プラス収支となるのは難しい！</dt>
+            <dd>
+              年間収支がプラスとなる可能性は2％に満たないし、年間30万円以上の収支を得る可能性はほぼ0％だ。<br />
+              だが、40万円以上負けるという可能性もかなり低い（0.17％以下）。
+            </dd>
+            <dt>年間プラス収支となる比率は穴狙いで高い！</dt>
+            <dd>
+              中穴狙いおよび大穴狙いでは年間プラスとなる比率は15％を超え、最も高い大穴狙いAでは19％近い。
+            </dd>
+            <dt>
+              5万円以上のプラス、10万円以上のプラスの比率は大穴狙いが最も高い！
+            </dt>
+            <dd>
+              大穴狙いAだと各比率は15％・12％を超えている。5万円のプラスがあれば家族を豪華な食事に連れていけそうだ。
+            </dd>
+            <dt>
+              大穴狙いBだと30万円プラスとなる可能性も十分あるし、100万円以上のプラスも望める！
+            </dt>
+            <dd>
+              なんと、年間30万円以上のプラスとなる可能性が6%以上あるし、100万円以上の可能性も0.7％ある。<br />
+              ただし、大穴狙いだと40万円以上のマイナスとなる可能性も高くなるので注意が必要！（大穴狙いBだと36％を超える）
+            </dd>
+          </dl>
+        </section>
+
+        <section class="section">
+          <h4>あなたが、車券が上手い人、または運が良い人なら！</h4>
+          <p>
+            表2.ではシミュレーションによって各グループの平均値を確認し、表3.では利益の可能性（プラス収支の比率）を探った。<br />
+            では、具体的に平均より車券が上手い人（または運が良い人）であったなら、あなたの収支はいくらになるのか？<br />
+            年間収支の分布から、以下に3つの例で、具体的な収支を算出してみた。
+          </p>
+
+          <h5>100人中30番目に車券が上手い（または運が良い）人なら</h5>
+          <p>
+            ちなみに、100人中30番目を学力テスト等で使う偏差値に換算すると
+            <b>55.2</b>だ。こちらのほうがイメージがわく人も多いかも知れない。<br />
+            各グループ内でこの順位の人の収支を下表に記載した。<br />
+            <span class="zudlr1"
+              ><b
+                >このくらいの順位だと、どのクラスでもまだ収支プラスになることはできないが、最もマイナス額が小さいのは小穴狙いBで-90,804円だ。</b
+              ></span
+            >
+          </p>
+
+          <div class="table-scroll">
+            <table class="art67-table">
+              <caption>
+                表4-1. 100人中30番目（偏差値55.2）の年間収支
+              </caption>
+              <thead>
+                <tr>
+                  <th rowspan="2">グループ</th>
+                  <th colspan="2">本命狙い</th>
+                  <th colspan="3">小穴狙い</th>
+                  <th colspan="2">中穴狙い</th>
+                  <th colspan="2">大穴狙い</th>
+                </tr>
+                <tr>
+                  <th>A</th>
+                  <th>B</th>
+                  <th>A</th>
+                  <th>B</th>
+                  <th>C</th>
+                  <th>A</th>
+                  <th>B</th>
+                  <th>A</th>
+                  <th>B</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th>年間収支</th>
+                  <td>-154,320円</td>
+                  <td>-162,000円</td>
+                  <td>-113,880円</td>
+                  <td>-90,804円</td>
+                  <td>-92,056円</td>
+                  <td>-93,360円</td>
+                  <td>-100,644円</td>
+                  <td>-109,480円</td>
+                  <td>-194,860円</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h5>100人中15番目に車券が上手い（または運が良い）人なら</h5>
+          <p>
+            ちなみに 100人中15番目を偏差値に換算すると <b>60.4</b>だ。<br />
+            <span class="zudlr1"
+              ><b
+                >ここまで順位を上げると、中穴狙いおよび大穴狙いでプラス収支となる。最も利益が出たのは大穴狙いAの+52,196円だった。</b
+              ></span
+            >
+          </p>
+
+          <div class="table-scroll">
+            <table class="art67-table">
+              <caption>
+                表4-2. 100人中15番目（偏差値60.4）の年間収支
+              </caption>
+              <thead>
+                <tr>
+                  <th rowspan="2">グループ</th>
+                  <th colspan="2">本命狙い</th>
+                  <th colspan="3">小穴狙い</th>
+                  <th colspan="2">中穴狙い</th>
+                  <th colspan="2">大穴狙い</th>
+                </tr>
+                <tr>
+                  <th>A</th>
+                  <th>B</th>
+                  <th>A</th>
+                  <th>B</th>
+                  <th>C</th>
+                  <th>A</th>
+                  <th>B</th>
+                  <th>A</th>
+                  <th>B</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th>年間収支</th>
+                  <td>-105,120円</td>
+                  <td>-115,800円</td>
+                  <td>-56,400円</td>
+                  <td>-19,560円</td>
+                  <td>-19,040円</td>
+                  <td>489円</td>
+                  <td>14,886円</td>
+                  <td>52,196円</td>
+                  <td>14,784円</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h5>100人中3番目に車券が上手い（または運が良い）人なら</h5>
+          <p>
+            ちなみに 100人中3番目を偏差値に換算すると <b>68.8</b>だ。<br />
+            トップクラスのベスト3まで順位を上げると、本命狙い以外の全てのグループで収支がプラスとなる。<br />
+            全てのレースで本命狙いするなら、購入レースの選び方によって多少の違いは出るものの、年間を通せば車券の上手・下手や運の良し・悪しが収支に与える影響は小さいようだ。<br />
+            <span class="zudlr1"
+              ><b
+                >大穴狙いだと順位（偏差値）の高さが収支に大きく反映される。大穴狙いBだと＋56万円もの利益が得られる結果となった。</b
+              ></span
+            >
+          </p>
+
+          <div class="table-scroll">
+            <table class="art67-table">
+              <caption>
+                表4-3. 100人中3番目（偏差値68.8）の年間収支
+              </caption>
+              <thead>
+                <tr>
+                  <th rowspan="2">グループ</th>
+                  <th colspan="2">本命狙い</th>
+                  <th colspan="3">小穴狙い</th>
+                  <th colspan="2">中穴狙い</th>
+                  <th colspan="2">大穴狙い</th>
+                </tr>
+                <tr>
+                  <th>A</th>
+                  <th>B</th>
+                  <th>A</th>
+                  <th>B</th>
+                  <th>C</th>
+                  <th>A</th>
+                  <th>B</th>
+                  <th>A</th>
+                  <th>B</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th>年間収支</th>
+                  <td>-19,673円</td>
+                  <td>-36,120円</td>
+                  <td>53,164円</td>
+                  <td>107,047円</td>
+                  <td>114,727円</td>
+                  <td>184,280円</td>
+                  <td>244,201円</td>
+                  <td>382,806円</td>
+                  <td>563,677円</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="section">
+          <h4>車券的中0本の可能性</h4>
+          <p>
+            最後に、シミュレーション結果で、各グループの年間の車券購入で的中が0本となった比率を示しておく。<br />
+            本命狙い〜小穴狙いまではほぼ0％だったが、大穴狙いAでは15.6％、大穴狙いBでは33.9％にもなってしまう。<br />
+            <span class="zudlr1"
+              ><b>大損を避けるためには、ストップロス</b
+              >（1か月の損失許容額。これを超えたらその月の車券購入を強制終了するルール）<b
+                >の設定が重要だ！</b
+              ></span
+            >
+          </p>
+
+          <div class="table-scroll">
+            <table class="art67-table">
+              <caption>
+                表4-4. 年間の車券的中0本の可能性
+              </caption>
+              <thead>
+                <tr>
+                  <th rowspan="2">グループ</th>
+                  <th colspan="2">本命狙い</th>
+                  <th colspan="3">小穴狙い</th>
+                  <th colspan="2">中穴狙い</th>
+                  <th colspan="2">大穴狙い</th>
+                </tr>
+                <tr>
+                  <th>A</th>
+                  <th>B</th>
+                  <th>A</th>
+                  <th>B</th>
+                  <th>C</th>
+                  <th>A</th>
+                  <th>B</th>
+                  <th>A</th>
+                  <th>B</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th>的中0本の比率</th>
+                  <td>0.00％</td>
+                  <td>0.00％</td>
+                  <td>0.00％</td>
+                  <td>0.00％</td>
+                  <td>0.00％</td>
+                  <td>0.32％</td>
+                  <td>2.55％</td>
+                  <td>15.62％</td>
+                  <td>33.85％</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </section>
+    </article>
+
+    <!-- Footer -->
+    <footer class="page-footer">
+      <p>&copy; 2026 Tohyama Keirin Research Institute. All rights reserved.</p>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" aria-label="Top">↑</button>
+
+    <!-- External Script -->
+    <script src="/js/tohyama/tohyama_202512.js"></script>
+  </body>
+</html>

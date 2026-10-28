@@ -1,0 +1,206 @@
+/* ---------------------------------------------- */
+/*  art72b.css                                    */
+/*    2026.9.15 created based on art67.css        */
+/* ---------------------------------------------- */
+body{
+  font-family:"Lucida Grande",Arial,sans-serif;
+  font-size:15px;
+  text-align:left;
+  margin: 0 auto;
+  padding:0;
+  line-height:1.4;
+  max-width:1000px;
+}
+h1{
+  font-size:24px;
+  margin-top:15px;
+  margin-bottom:15px;
+}
+h1.width-subtitle{
+  margin-bottom:5px;
+}
+.date_suf2{
+  padding-left:20px;
+  font-size:14px;
+  font-weight:normal;
+  color:gray;
+}
+h2.subtitle{
+  font-size:18px;
+  font-weight:bold;
+  margin:5px 10px 15px 0px;
+}
+h3{
+  font-size:18px;
+  font-weight:bold;
+  width:fit-content;
+  padding-right:2em;
+  margin:28px 10px 18px 0px;
+  background: linear-gradient(transparent 70%, #a7d6ff 70%);
+}
+
+h4{
+  font-size:17px;
+  font-weight:bold;
+  width:fit-content;
+  padding-right:1.0em;
+  margin:22px 10px 15px 0px;
+  border-bottom: double 3px #99c8f1;
+  line-height: 1.3;
+}
+h5{
+  font-size:16px;
+  font-weight:bold;
+  width:fit-content;
+  padding-right:0.5em;
+  margin:18px 10px 12px 0;
+  border-bottom: dotted 2px #99c8f1;
+  line-height: 1.3;
+}
+p{
+  margin:12px 0px 12px 0px;
+  padding:0;
+}
+div{
+  margin:0;
+  padding:0;
+}
+#bdy{
+  margin:4px 12px 12px 16px;
+}
+section.chapter{
+  margin-top:30px;
+}
+section.section{
+  margin-top:20px;
+}
+
+/* 装飾 */
+.nrm{ font-weight:normal; }             /* 標準太さのフォント */
+.keyword1{ font-weight:bold; color:#000080; }
+.bold{  font-weight:bold; }          /* article40,45 で追加 */
+.sup5{                           /* 脚注へのリンクで使用 */
+  font-size: 80%;
+}
+/* ----- 以下は 2026.6 追加 / 2026.10 修正-------- */
+table.art72-table{
+  border-collapse: collapse;
+  font-size:15px;
+  margin:10px 10px 5px 20px;
+}
+table.art72-table caption{
+  white-space:nowrap;
+  font-weight:normal;
+  text-align:left;
+  padding-left:15px;
+  padding-bottom:2px;
+}
+table.art72-table th,table.art72-table td{
+  white-space:nowrap;
+  border:1px solid gray;
+  text-align:center;
+  padding:2px 6px;
+}
+table.art72-table  th{
+  background-color:#eaece6;
+  font-weight:normal;
+} 
+table.art72-table th span{
+  font-size:90%;
+}
+table.t72adA td:nth-child(2){
+  padding-left:0.5em;
+  padding-right:0.5em;
+  text-align:left;
+}
+table.t72adC td:nth-child(1){
+  min-width: 5.5em;
+}
+table.t72adC td:nth-child(n+2){
+  min-width: 4.5em;
+}
+
+/*  --------------- */
+.smlftB{ font-size:86%; }             /* 小さいフォント */
+.nwrap{
+  white-space:nowrap;
+}
+.zudlg1{  /* art61.cssより */
+  text-decoration: solid underline 1px green;
+  text-underline-offset: 0.2em; /* 線の位置。テキストに重ならないよう、やや下部にする */
+} 
+.zudlr1{  /* art61.cssより */
+  text-decoration: solid underline 1px red;
+  text-underline-offset: 0.2em; /* 線の位置。テキストに重ならないよう、やや下部にする */
+} 
+.zudlr2{  /* art61.cssよりコピーして 太さを2へ */
+  text-decoration: solid underline 2px red;
+  text-underline-offset: 0.2em; /* 線の位置。テキストに重ならないよう、やや下部にする */
+} 
+.markerY { /* bank_type1.cssより == art61.css の.hlighty */
+  text-decoration: underline; /* 下線 */
+  text-decoration-thickness: 0.5em; /* 線の太さ */
+  text-decoration-color: rgba(255, 228, 0, 0.5); /* 線の色 */
+  text-underline-offset: -0.2em; /* 線の位置。テキストに重なるようにやや上部にする */
+  text-decoration-skip-ink: none; /* 下線と文字列が重なる部分でも下線が省略されない（線が途切れない） */
+}
+
+/* --- 2026.10 追加 --- */
+dl.dt-bold{
+  margin: 7px 0 7px 12px;   # defoult:  7px 0;
+}
+dl.dt-bold dt{
+  font-weight:bold;
+}
+dl.dt-bold dd{
+  margin-bottom: 5px;
+}
+/* 1. 親要素：Flexboxを有効にする */
+.gallery-container {  /*  収支の度数分布図のコンテナ */
+  display: flex;
+  gap: 5px s0px;            /* 画像と画像の間のすき間（縦横共通） */
+  flex-wrap: wrap;      /* 画面が狭くなったら自動で折り返す設定 */
+  justify-content: center; /* 全体を中央寄せ（左寄せにしたい場合は flex-start） */
+  padding: 5px 1px;
+}
+/* 2. 子要素（figure）：横並びにするアイテムの設定 */
+.gallery-item {
+  flex: 1 1 33%;      /* 画面に合わせて伸縮。ベースの幅は300px */
+  max-width:380px;     /* 大きくなりすぎないように上限を設定 */
+  min-width:250px;   
+  margin: 0;            /* figure特有のデフォルトの余白をリセット */
+  /* background-color: #f9f9f9; */
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;       /* はみ出た画像を隠す */
+  
+  position: relative;   /* これを書くことで、中のキャプションが外に飛び出さない */
+  padding-top: 9px;
+}
+/* 3. 画像：親（figure）の幅にぴったり合わせる */
+.gallery-item img {
+  width: 100%;
+  height: auto;
+  display: block;       /* 画像の下にできる謎のすき間を消す */
+}
+
+/* 4. キャプション：見栄えの調整 */
+.gallery-item figcaption {
+  /* 空中浮遊させて位置を固定 */
+  position: absolute;
+  top: 3px;          /* 画像の一番上に配置 */
+  left: 0;         /* 左端にぴったり合わせる */
+  width: 100%;     /* 横幅を画像いっぱいに広げる */
+
+  font-size: 14px;
+  color: #000;
+  padding: 0;
+  text-align: center;
+  
+}
+
+.table-wrap1{
+  margin: 0 0 10px 0;
+  padding:0 0 7px 0;
+  /* background-color: #eef; */
+}

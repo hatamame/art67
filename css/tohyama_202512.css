@@ -1,91 +1,98 @@
 /* ---------------------------------------------- */
-/* art67.css (User Provided Base Styles)         */
+/* art67.css (ユーザー提供の基本スタイル)        */
 /* ---------------------------------------------- */
 body {
-  font-family: "Noto Sans JP", "Lucida Grande", Arial, sans-serif; /* Updated font */
-  font-size: 17px; /* Increased for readability */
+  font-family: "Noto Sans JP", "Lucida Grande", Arial, sans-serif;
+  font-size: 16px; /* 基本フォントサイズ */
   text-align: left;
   margin: 0 auto;
   padding: 0;
-  line-height: 1.8; /* Increased line height */
+  line-height: 1.8;
   color: #333;
-  background-color: #f9f9f9; /* Slight gray background for the page */
+  background-color: #f9f9f9;
 }
 
-/* Container for the paper look */
 #bdy {
-  max-width: 1200px; /* Expanded width */
-  margin: 80px auto 40px auto; /* Top margin for fixed header */
-  padding: 50px; /* Increased padding */
+  max-width: 1200px;
+  margin: 80px auto 40px auto;
+  padding: 50px;
   background-color: white;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
   border-radius: 4px;
   position: relative;
 }
 
-/* Mobile responsive adjustments */
+/* モバイル用レスポンシブ調整 */
 @media (max-width: 768px) {
   #bdy {
     margin: 60px 10px 20px 10px;
     padding: 20px;
   }
-  .grp-double {
+  .grp-double,
+  .grp-triple {
     width: 100% !important;
   }
 }
 
-/* Title Group Container */
-.title-group {
-  border-bottom: 2px solid #003366;
+/* =========================================================
+   1. ヘッダーデザインの更新
+   ========================================================= */
+/* タイトル + シリーズ名 + 日付 のコンテナ */
+.article-header {
+  border-bottom: 2px solid #003366; /* 全体の下に線を引く */
   padding-bottom: 10px;
   margin-bottom: 30px;
 }
 
+/* メインタイトル: 大きく太字 */
 h1.main-title {
   font-family: "Noto Serif JP", serif;
-  font-size: 36px; /* Larger Main Title */
+  font-size: 32px;
+  font-weight: bold;
   margin-top: 0;
-  margin-bottom: 10px;
+  margin-bottom: 5px; /* 次の行との最小限のスペース */
   color: #003366;
-  border-bottom: none; /* Removed border from h1 */
-  padding-bottom: 0;
+  border-bottom: none; /* H1の直下には線を引かない */
 }
 
-/* Subtitle Row (Series Title + Date) */
+/* シリーズタイトルと日付の行 */
 .subtitle-row {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between; /* シリーズは左、日付は右 */
   align-items: flex-end;
 }
 
+/* シリーズタイトル: メインタイトルより小さく */
 h2.series-title {
-  font-size: 20px; /* Smaller than Main Title */
+  font-size: 18px; /* H1 (32px) より明確に小さく */
   font-weight: bold;
-  margin: 0;
   color: #555;
-  /* Removed box style to match the requested simple layout */
-  background-color: transparent;
+  margin: 0;
   padding: 0;
-  border-left: none;
-  border-radius: 0;
+  border: none;
+  background: none;
 }
 
+/* 日付 */
 .date_suf2 {
-  font-size: 15px;
-  font-weight: normal;
+  font-size: 14px;
   color: #666;
-  /* Reset float and margin as we use flexbox now */
-  float: none;
   margin: 0;
 }
 
+/* =========================================================
+   2. 見出しデザインの更新 (H3, H4)
+   ========================================================= */
+
+/* H3: 太字、大きく、下にスペース */
 h3 {
-  font-size: 28px; /* Increased size */
-  font-weight: bold;
+  font-size: 28px; /* 目立たせるために24pxから28pxに拡大 */
+  font-weight: bold; /* 太字 */
   color: #003366;
   width: fit-content;
   padding-right: 1.5em;
-  margin: 60px 0 40px 0; /* Increased margin-top and margin-bottom */
+  margin-top: 60px; /* 上のスペース */
+  margin-bottom: 30px; /* 下のスペース (<p>に対して) - 要望 */
   border-bottom: solid 2px #ccc;
   position: relative;
 }
@@ -99,22 +106,69 @@ h3::after {
   background-color: #003366;
 }
 
+/* H4: 標準サイズ (約)、太字、上下にスペース */
 h4 {
-  font-size: 20px; /* Normal size, smaller than h3 */
-  font-weight: normal; /* Normal weight as requested? User said "h4 is normal size and smaller than h3", but usually headings are bold. User said "h3 is bold... h4 is normal size". Let's keep h4 bold but ensure size difference is clear. Actually user said "h4 is normal size... h3 is bold". Let's try font-weight: normal for h4 if that's what they meant, OR just smaller. The user said: "h3が太文字でやや大きい文字 に対して、h4はノーマルサイズでh3よりやや小さい". This implies h4 might be normal weight. Let's set it to normal weight to distinguish it more, or just keep it bold but smaller. The user's complaint was "h3 and h4 look similar". Making h3 bigger and h4 normal weight (or just smaller) will help. Let's make h3 Bold 28px and h4 Bold 20px (or Normal 20px). I'll stick to Bold for h4 but ensure size contrast, and add margins. Wait, user said "h4はノーマルサイズ". I will try font-weight: normal for h4. */
-  font-weight: bold; /* I will keep it bold for now as it is a heading, but ensure h3 is MUCH bigger. */
+  font-size: 18px; /* H3より少し小さく、本文に近いが区別できるサイズ */
+  font-weight: bold; /* 見出しの明確さのために太字を維持 */
+  color: #444;
   width: fit-content;
   padding-right: 1.5em;
-  margin: 40px 0 30px 0; /* Added space above and below */
+  margin-top: 40px; /* 上のスペース (前のテキストに対して) - 要望 */
+  margin-bottom: 20px; /* 下のスペース (次のテキストに対して) - 要望 */
   border-bottom: dotted 1px gray;
-  color: #444;
 }
 
+/* H5: H4配下の小見出し（目次には含めない） */
+h5 {
+  font-size: 17px;
+  font-weight: bold;
+  color: #003366;
+  margin-top: 30px;
+  margin-bottom: 12px;
+  padding-left: 10px;
+  border-left: 4px solid #003366;
+  line-height: 1.5;
+}
+
+/* 段落の間隔 */
 p {
-  margin: 16px 0; /* Increased margin */
-  padding: 0;
+  margin: 0 0 16px 0; /* 標準的な段落の間隔 */
   text-align: justify;
 }
+
+/* =========================================================
+   3. Tailwindクラスの置換用スタイル
+   ========================================================= */
+
+/* フォーミュラボックス */
+.formula-box {
+  text-align: center;
+  padding: 16px 0;
+}
+
+/* 箇条書きリスト */
+.class-list {
+  list-style-type: disc;
+  list-style-position: inside;
+  margin-left: 20px;
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+/* ページフッター */
+.page-footer {
+  text-align: center;
+  padding: 24px 0;
+  color: #6b7280; /* text-gray-500 equivalent */
+  font-size: 14px; /* text-sm equivalent */
+  border-top: 1px solid #e5e7eb; /* border-gray-200 equivalent */
+  margin-top: 40px;
+  background-color: white;
+}
+
+/* =========================================================
+   その他のスタイル
+   ========================================================= */
 
 section.chapter {
   margin-top: 50px;
@@ -126,17 +180,27 @@ section.footer {
   padding: 2px;
 }
 
-/* Graph Container Styling */
+/* グラフコンテナのスタイル */
 .graph-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 30px; /* Increased gap */
+  gap: 30px;
   margin: 30px 0;
 }
 
 .grp-double {
-  width: 520px; /* Increased width to match expanded layout */
+  width: 520px;
+  max-width: 100%;
+  height: auto;
+  border: 1px solid #eee;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  background-color: white;
+}
+
+/* 3列並びのグラフ（度数分布図など） */
+.grp-triple {
+  width: 330px;
   max-width: 100%;
   height: auto;
   border: 1px solid #eee;
@@ -150,7 +214,6 @@ section.footer {
 }
 
 .wrap-grp p {
-  /* Using standard flow instead of absolute for better responsiveness */
   position: static;
   font-size: 15px;
   font-weight: bold;
@@ -159,7 +222,6 @@ section.footer {
   text-align: left;
   padding-left: 10px;
 }
-/* Overriding the absolute positioning from original CSS for better reliability */
 .wrap-grp p.wpn2 {
   position: static;
 }
@@ -180,12 +242,12 @@ section.footer {
   vertical-align: super;
 }
 
-/* Table Styles - Research Theme */
+/* テーブルのスタイル */
 table.art67-table {
   border-collapse: collapse;
   font-size: 16px;
   margin: 30px auto;
-  width: 95%; /* Slightly wider */
+  width: 95%;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
@@ -201,11 +263,11 @@ table.art67-table th,
 table.art67-table td {
   border: 1px solid #ddd;
   text-align: center;
-  padding: 12px 15px; /* Increased padding */
+  padding: 12px 15px;
 }
 
 table.art67-table th {
-  background-color: #003366; /* Header Color */
+  background-color: #003366;
   color: white;
   font-weight: normal;
 }
@@ -214,21 +276,25 @@ table.art67-table tr:nth-child(even) {
   background-color: #f9f9f9;
 }
 
-/* Table Scroll Wrapper for Mobile */
+/* 2列目を左寄せにするテーブル（文章の列など） */
+table.art67-table.col2-left td:nth-child(2) {
+  text-align: left;
+}
+
+/* モバイル用テーブルスクロールラッパー */
 .table-scroll {
   width: 100%;
   overflow-x: auto;
-  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+  -webkit-overflow-scrolling: touch;
   margin-bottom: 20px;
 }
 
-/* Ensure table doesn't shrink too much inside scroll view */
 .table-scroll table.art67-table {
-  min-width: 600px; /* Force min-width to trigger scroll on small screens */
+  min-width: 600px;
   width: 100%;
 }
 
-/* Definition List */
+/* 定義リスト */
 dl.art67-dl {
   margin-left: 20px;
 }
@@ -272,7 +338,7 @@ dl.art67-dl dd {
 }
 
 /* ---------------------------------------------- */
-/* Additional Styles for Header & Menu (Script)  */
+/* ヘッダーとメニューのスクリプトサポート        */
 /* ---------------------------------------------- */
 .header {
   position: fixed;
@@ -290,7 +356,7 @@ dl.art67-dl dd {
 
 .header .container {
   width: 100%;
-  max-width: 1200px; /* Expanded width to match body */
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
   display: flex;
@@ -304,7 +370,6 @@ dl.art67-dl dd {
   margin-right: 10px;
 }
 
-/* Hamburger Menu */
 .hamburger {
   width: 30px;
   height: 24px;
@@ -333,7 +398,6 @@ dl.art67-dl dd {
   transform: translateY(-10.5px) rotate(-45deg);
 }
 
-/* Menu Overlay */
 .menu_off {
   position: fixed;
   top: 60px;
@@ -341,7 +405,7 @@ dl.art67-dl dd {
   width: 100%;
   max-width: 300px;
   height: calc(100vh - 60px);
-  background-color: rgba(0, 51, 102, 0.95); /* Deep Blue transparency */
+  background-color: rgba(0, 51, 102, 0.95);
   transition: right 0.3s ease;
   z-index: 999;
   padding: 20px;
@@ -383,7 +447,7 @@ dl.art67-dl dd {
 }
 
 /* ---------------------------------------------- */
-/* Animation Classes (for script.js)             */
+/* アニメーションとUXクラス                     */
 /* ---------------------------------------------- */
 .main_section {
   opacity: 0;
@@ -396,7 +460,6 @@ dl.art67-dl dd {
   transform: translateY(0);
 }
 
-/* Placeholder for images when files are missing */
 img.grp-double:not([src]) {
   display: flex;
   justify-content: center;
@@ -407,7 +470,6 @@ img.grp-double:not([src]) {
   height: 300px;
 }
 
-/* Lab Header for text logo fallback */
 .lab-logo-text {
   font-family: "Noto Serif JP", serif;
   font-size: 20px;
@@ -417,16 +479,7 @@ img.grp-double:not([src]) {
   display: flex;
   align-items: center;
 }
-.lab-logo {
-  margin-right: 8px;
-  font-size: 24px;
-}
 
-/* ---------------------------------------------- */
-/* UX Enhancements                               */
-/* ---------------------------------------------- */
-
-/* Table of Contents */
 #toc-container {
   background-color: #f4f8fb;
   border: 1px solid #dbe4ed;
@@ -470,7 +523,6 @@ img.grp-double:not([src]) {
   text-decoration: underline;
 }
 
-/* Back to Top Button */
 #back-to-top {
   position: fixed;
   bottom: 30px;
@@ -503,7 +555,6 @@ img.grp-double:not([src]) {
   transform: translateY(-3px);
 }
 
-/* Marker Animation */
 .markerY {
   background: linear-gradient(transparent 60%, rgba(255, 228, 0, 0.5) 60%);
   background-size: 0% 100%;
